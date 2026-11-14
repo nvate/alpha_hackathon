@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Персональный образовательный маршрут</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1> Создайте свой образовательный маршрут</h1>
+
+        <form action="/submit" method="POST" class="form">
+            <!-- Шаг 1: Цель -->
+            <div class="step">
+                <h2>Шаг 1: Ваша цель</h2>
+
+                <label>
+                    Направление:
+                    <select name="direction" required>
+                        <option value="">Выберите...</option>
+                        <option value="start_strategy">Старт и стратегия</option>
+                        <option value="finance_investments">Финансы и инвестиции</option>
+                        <option value="tax_law">Налоги и право</option>
+                        <option value="marketing_brand">Маркетинг и бренд</option>
+			<option value="digital_marketing">Digital-маркетинг</option>
+			<option value="sales_clients">Продажи и клиенты</option>
+			<option value="analitics_data">Аналитика и данные</option>
+			<option value="team_hr">Команда и HR</option>
+			<option value="product_management">Управление проектами</option>
+			<option value="product_dev">Продукт и разработка</option>
+                        <option value="tools">Инструменты</option>
+                    </select>
+                </label>
+
+                <label>
+                    Конкретная цель (необязательно):
+                    <textarea name="description" rows="3"
+                              placeholder="Например: Хочу разобраться в Налоговой реформе 2026"></textarea>
+                </label>
+            </div>
+
+            <!-- Шаг 2: Текущий уровень -->
+            <div class="step">
+                <h2>Шаг 2: Ваш текущий уровень</h2>
+
+                <label>
+                    Уровень подготовки:
+                    <select name="level" required>
+                        <option value="zero">С нуля</option>
+                        <option value="basic">Знаю основы</option>
+                        <option value="some">Есть опыт (пет-проекты)</option>
+                        <option value="working">Работаю в сфере</option>
+                    </select>
+                </label>
+
+                <label>
+                    Что уже знаете (в каждой категории можно выбрать несколько):
+			<!-- Базовые бизнес-навыки -->
+			<div class="skill-category">
+    				<div class="skill-category-title">Бизнес и стратегия</div>
+   			 	<div class="checkbox-group">
+        				<label><input type="checkbox" name="skills" value="sales"> Продажи</label>
+        				<label><input type="checkbox" name="skills" value="negotiations"> Переговоры</label>
+        				<label><input type="checkbox" name="skills" value="client_communication"> Работа с клиентами</label>
+        				<label><input type="checkbox" name="skills" value="goal_setting"> Постановка целей</label>
+    				</div>
+			</div>
+			<!-- Маркетинг -->
+			<div class="skill-category">
+    				<div class="skill-category-title">Маркетинг и продвижение</div>
+    				<div class="checkbox-group">
+       					<label><input type="checkbox" name="skills" value="marketing"> Маркетинг</label>
+        				<label><input type="checkbox" name="skills" value="social_media"> Продвижение в соцсетях</label>
+        				<label><input type="checkbox" name="skills" value="target_audience"> Анализ ЦА</label>
+        				<label><input type="checkbox" name="skills" value="market_analysis"> Анализ рынка</label>
+    				</div>
+			</div>
+			<!-- Финансы и аналитика -->
+			<div class="skill-category">
+    				<div class="skill-category-title">Финансы и аналитика</div>
+    				<div class="checkbox-group">
+        				<label><input type="checkbox" name="skills" value="finance_mgmt"> Управление финансами</label>
+        				<label><input type="checkbox" name="skills" value="financial_analysis"> Финансовый анализ</label>
+        				<label><input type="checkbox" name="skills" value="data_analysis"> Анализ данных</label>
+        				<label><input type="checkbox" name="skills" value="sql"> SQL</label>
+        				<label><input type="checkbox" name="skills" value="excel"> Excel / Google Sheets</label>
+    				</div>
+			</div>
+			<!-- Управление -->
+			<div class="skill-category">
+    				<div class="skill-category-title">Управление и процессы</div>
+    				<div class="checkbox-group">
+        				<label><input type="checkbox" name="skills" value="team_mgmt"> Управление командой</label>
+        				<label><input type="checkbox" name="skills" value="project_mgmt"> Управление проектами</label>
+        				<label><input type="checkbox" name="skills" value="task_setting"> Постановка задач</label>
+        				<label><input type="checkbox" name="skills" value="crm"> Работа в CRM</label>
+    				</div>
+			</div>
+                    	<!-- Технические навыки -->
+			<div class="skill-category">
+    				<div class="skill-category-title">Технические навыки</div>
+    				<div class="checkbox-group">
+        				<label><input type="checkbox" name="skills" value="python"> Python</label>
+        				<label><input type="checkbox" name="skills" value="javascript"> JavaScript</label>
+        				<label><input type="checkbox" name="skills" value="html_css"> HTML/CSS</label>
+        				<label><input type="checkbox" name="skills" value="git"> Git</label>
+        				<label><input type="checkbox" name="skills" value="english"> Английский</label>
+    				</div>
+			</div>
+                </label>
+            </div>
+
+            <!-- Шаг 3: Приоритеты -->
+            <div class="step">
+                <h2>Шаг 3: Ваши приоритеты</h2>
+
+                <label>
+                    Бюджет:
+                    <select name="budget" required>
+                        <option value="free">Только бесплатное</option>
+                        <option value="low">До 5 000 ₽</option>
+                        <option value="medium">До 20 000 ₽</option>
+                        <option value="high">Без ограничений</option>
+                    </select>
+                </label>
+
+                <label>
+                    Часов в неделю: <span id="weeklyHoursValue">5</span>
+                    <input type="range" name="weeklyHours" min="2" max="40" step="1" value="5"
+                           oninput="document.getElementById('weeklyHoursValue').textContent = this.value">
+                </label>
+
+                <label>
+                    Срок достижения цели:
+                    <select name="timeline" required>
+                        <option value="fast">Как можно быстрее (1-2 месяца)</option>
+                        <option value="comfortable" selected>Комфортно (3-6 месяцев)</option>
+                        <option value="fundamental">Фундаментально (6-12 месяцев)</option>
+                    </select>
+                </label>
+
+                <label>
+                    Формат обучения (можно выбрать несколько):
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="formats" value="video">Курсы</label>
+                        <label><input type="checkbox" name="formats" value="text">Статьи/книги</label>
+                        <label><input type="checkbox" name="formats" value="mentor">Вебинары</label>
+                        <label><input type="checkbox" name="formats" value="interactive">Подкасты</label>
+                    </div>
+                </label>
+            </div>
+
+            <button type="submit" class="submit-btn">Сформировать маршрут</button>
+        </form>
+    </div>
+</body>
+</html>
