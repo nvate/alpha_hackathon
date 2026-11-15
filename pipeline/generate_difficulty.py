@@ -3,10 +3,12 @@ import numpy as np
 import pandas as pd
 from pathlib import Path
 
-JSONL_PATH = Path("data/aligned_materials.jsonl")
-VECTORS_PATH = Path("artifacts/tag_vectors.npy")
-META_PATH = Path("artifacts/materials_meta.parquet")
-OUT_PATH = Path("artifacts/difficulty_scores.npy")
+ROOT_DIR = Path(__file__).resolve().parent.parent
+
+JSONL_PATH = ROOT_DIR / "data" / "aligned_materials.jsonl"
+VECTORS_PATH = ROOT_DIR / "artifacts" / "tag_vectors.npy"
+META_PATH = ROOT_DIR / "artifacts" / "materials_meta.parquet"
+OUT_PATH = ROOT_DIR / "artifacts" / "difficulty_scores.npy"
 
 # Жесткие маркеры для новичков (сильно понижают)
 BEGINNER_WORDS = frozenset([

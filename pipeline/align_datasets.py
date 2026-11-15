@@ -5,9 +5,13 @@ from pathlib import Path
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 log = logging.getLogger(__name__)
 
-TAGS_PATH = Path("materials_tags.json")
-JSONL_PATH = Path("data/alfa_material_cards_full.jsonl")
-OUT_PATH = Path("data/aligned_materials.jsonl")
+# Находим корень проекта (папку infinitealpha)
+ROOT_DIR = Path(__file__).resolve().parent.parent
+
+# Теперь пути всегда будут вести в корень, откуда бы мы ни запускали скрипт
+TAGS_PATH = ROOT_DIR / "data" / "materials_tags.json"
+JSONL_PATH = ROOT_DIR / "data" / "alfa_material_cards_full.jsonl"
+OUT_PATH = ROOT_DIR / "data" / "aligned_materials.jsonl"
 
 
 def clean_material_id(raw_id: str) -> str:

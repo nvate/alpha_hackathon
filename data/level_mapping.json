@@ -1,0 +1,8 @@
+{
+  "levels": {
+    "zero":    {"label": "С нуля",                  "max_difficulty": 0.43},
+    "basic":   {"label": "Знаю основы",             "max_difficulty": 0.54},
+    "some":    {"label": "Есть опыт (пет-проекты)", "max_difficulty": 0.58},
+    "working": {"label": "Работаю в сфере",         "max_difficulty": 0.91}
+  }
+}
