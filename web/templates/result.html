@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ваш маршрут — Альфа Курс</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- Шапка с навигацией -->
+        <div class="result-header">
+            <div class="result-nav">
+                <a href="/" class="back-link">← Изменить вводные</a>
+                <a href="/profile" class="profile-link">Мой профиль →</a>
+            </div>
+            <h1>Ваш маршрут к цели</h1>
+            <p class="goal-text">«{{ user_goal }}»</p>
+        </div>
+
+        <!-- Прогресс-бар -->
+        <div class="progress-container">
+            <div class="progress-labels">
+                <span>Прогресс обучения</span>
+                <span class="progress-percent">{{ progress }}%</span>
+            </div>
+            <div class="progress-track">
+                <div class="progress-fill" style="width: {{ progress }}%;"></div>
+            </div>
+        </div>
+
+        <!-- Таймлайн (Дорожная карта) -->
+        <div class="roadmap">
+            {% for step in route %}
+            <div class="roadmap-step {{ step.status }}">
+                <div class="step-indicator">
+                    {% if step.status == 'completed' %}
+                        <span class="icon">✓</span>
+                    {% elif step.status == 'current' %}
+                        <span class="icon pulse">▶</span>
+                    {% else %}
+                        <span class="icon">🔒</span>
+                    {% endif %}
+                </div>
+                
+                <div class="step-content">
+                    <div class="step-header">
+                        <h3>{{ step.course_title }}</h3>
+                        <span class="step-time">{{ step.time_hours }} ч.</span>
+                    </div>
+                    <p class="step-desc">{{ step.description }}</p>
+                    
+                    {% if step.status == 'current' %}
+                        <button class="action-btn">Начать обучение</button>
+                    {% elif step.status == 'locked' %}
+                        <button class="action-btn disabled" disabled>Сначала пройдите предыдущий этап</button>
+                    {% else %}
+                        <button class="action-btn secondary">Повторить</button>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="overall-explanation" style="margin-top: 30px; padding: 20px; background: var(--bg-main); border-radius: 16px; font-size: 1.05rem; line-height: 1.6;">
+            <strong>💡 Почему этот маршрут оптимален:</strong><br>
+            {{ overall_explanation }}
+        </div>
+
+        <!-- Блок перехода в профиль -->
+        <div class="profile-cta">
+            <div class="profile-cta-text">
+                <h3>Отслеживайте прогресс в профиле</h3>
+                <p>Смотрите свою дорожную карту, уровень экспертности по направлениям и общую продуктивность на платформе.</p>
+            </div>
+            <a href="/profile" class="profile-cta-btn">Перейти в профиль</a>
+        </div>
+    </div>
+</body>
+</html>

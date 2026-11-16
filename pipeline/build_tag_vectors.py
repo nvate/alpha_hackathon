@@ -32,9 +32,11 @@ logging.basicConfig(level=logging.INFO,
                     datefmt="%H:%M:%S", stream=sys.stdout)
 log = logging.getLogger(__name__)
 
+ROOT_DIR = Path(__file__).resolve().parent.parent
+
 SEMANTIC_FIELDS = ["Topics", "Tags", "Subject", "Industries"]
-DEFAULT_INPUT   = Path("materials_tags.json")
-DEFAULT_OUT_DIR = Path("artifacts")
+DEFAULT_INPUT   = ROOT_DIR / "data" / "materials_tags.json"
+DEFAULT_OUT_DIR = ROOT_DIR / "artifacts"
 
 LATIN_TO_CYR = str.maketrans({
     "a": "а", "e": "е", "o": "о", "p": "р", "c": "с",
