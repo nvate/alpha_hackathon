@@ -2,8 +2,10 @@ import networkx as nx
 import pandas as pd
 from pathlib import Path
 
-NODES_PATH = Path("artifacts/graph_nodes.parquet")
-EDGES_PATH = Path("artifacts/graph_edges.parquet")
+ROOT_DIR = Path(__file__).resolve().parent.parent
+
+NODES_PATH = ROOT_DIR / "artifacts" / "graph_nodes.parquet"
+EDGES_PATH = ROOT_DIR / "artifacts" / "graph_edges.parquet"
 
 print("Загружаю граф...")
 nodes_df = pd.read_parquet(NODES_PATH)
