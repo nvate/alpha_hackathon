@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль — Альфа Курс</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --alfa-red: #EF3124;
+            --alfa-red-dark: #D6281B;
+            --alfa-black: #1A1A1A;
+            --bg-main: #F4F5F7;
+            --card-bg: #FFFFFF;
+            --text-muted: #767676;
+            --border-color: #E1E1E1;
+            --header-bg: #E8E8EA;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background-color: var(--bg-main);
+            color: var(--alfa-black);
+            line-height: 1.5;
+            min-height: 100vh;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            background-color: var(--header-bg);
+            padding: 20px 48px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--alfa-red);
+            text-decoration: none;
+            position: relative;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--alfa-red);
+            border-radius: 2px;
+        }
+
+        .nav {
+            display: flex;
+            gap: 32px;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: var(--alfa-black);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .nav a:hover,
+        .nav a.active {
+            color: var(--alfa-red);
+        }
+
+        .btn-logout {
+            background-color: var(--alfa-red);
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 99px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .btn-logout:hover {
+            background-color: var(--alfa-red-dark);
+        }
+
+        /* ===== MAIN LAYOUT ===== */
+        .main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 48px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: start;
+        }
+
+        /* ===== LEFT COLUMN ===== */
+        .profile-section h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 32px;
+            letter-spacing: -1px;
+        }
+
+        .profile-info {
+            margin-bottom: 48px;
+        }
+
+        .profile-name {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .edit-icon {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            opacity: 0.5;
+            transition: opacity 0.2s;
+        }
+
+        .edit-icon:hover {
+            opacity: 1;
+        }
+
+        .profile-field {
+            margin-bottom: 16px;
+        }
+
+        .profile-field-label {
+            font-weight: 600;
+            font-size: 1.05rem;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .profile-field-value {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-left: 28px;
+        }
+
+        /* Progress section */
+        .progress-section h2 {
+            font-size: 2.2rem;
+            font-weight: 900;
+            margin-bottom: 32px;
+            letter-spacing: -0.5px;
+        }
+
+        .progress-item {
+            margin-bottom: 32px;
+        }
+
+        .progress-item-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .progress-bar-container {
+            position: relative;
+            height: 8px;
+            background-color: var(--border-color);
+            border-radius: 4px;
+            overflow: visible;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background-color: var(--alfa-red);
+            border-radius: 4px;
+            transition: width 0.8s ease;
+        }
+
+        .progress-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .progress-current {
+            font-weight: 700;
+            color: var(--alfa-black);
+            font-size: 1.1rem;
+        }
+
+        /* ===== RIGHT COLUMN - RADAR ===== */
+        .radar-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .radar-container {
+            position: relative;
+            width: 600px;
+            height: 600px;
+        }
+
+        .radar-svg {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+        }
+
+        .radar-rotating {
+            transform-origin: 300px 300px;
+            transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        /* Grid circles */
+        .radar-grid circle {
+            fill: none;
+            stroke: var(--border-color);
+            stroke-width: 1;
+        }
+
+        .radar-grid circle.outer {
+            stroke: var(--alfa-red);
+            stroke-width: 3;
+        }
+
+        /* Axis lines */
+        .radar-axis {
+            stroke: var(--alfa-red);
+            stroke-width: 1;
+            stroke-dasharray: 4 4;
+            opacity: 0.4;
+        }
+
+        /* Data polygon */
+        .radar-polygon {
+            fill: rgba(239, 49, 36, 0.08);
+            stroke: var(--alfa-red);
+            stroke-width: 2;
+            transition: all 0.3s;
+        }
+
+        /* Data points */
+        .radar-point {
+            fill: var(--alfa-red);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .radar-point:hover {
+            r: 8;
+            filter: drop-shadow(0 0 6px rgba(239, 49, 36, 0.5));
+        }
+
+        .radar-point.active {
+            r: 7;
+            fill: var(--alfa-black);
+        }
+
+        /* Pointer (указатель внизу) */
+        .radar-pointer {
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            pointer-events: none;
+        }
+
+        .pointer-line {
+            width: 2px;
+            height: 30px;
+            background-color: var(--alfa-red);
+            margin: 0 auto 8px;
+        }
+
+        .pointer-dot {
+            width: 10px;
+            height: 10px;
+            background-color: var(--alfa-red);
+            border-radius: 50%;
+            margin: 0 auto;
+        }
+
+        .pointer-text {
+            margin-top: 16px;
+            text-align: center;
+        }
+
+        .pointer-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin-bottom: 4px;
+            transition: all 0.3s;
+        }
+
+        .pointer-subtitle {
+            font-size: 1rem;
+            color: var(--text-muted);
+            transition: all 0.3s;
+        }
+
+        /* Center dot */
+        .radar-center {
+            fill: var(--alfa-red);
+        }
+
+        .radar-center-ring {
+            fill: none;
+            stroke: var(--alfa-black);
+            stroke-width: 2;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+        <div class="header-left">
+            <a href="#" class="logo">Альфа Курс</a>
+            <nav class="nav">
+                <a href="#">Главная</a>
+                <a href="#" class="active">Мое обучение</a>
+                <a href="#">Каталог курсов</a>
+            </nav>
+        </div>
+        <a href="#" class="btn-logout">Выход</a>
+    </header>
+
+    <!-- MAIN -->
+    <main class="main">
+        <!-- LEFT COLUMN -->
+        <div class="left-column">
+            <div class="profile-section">
+                <h1>Профиль</h1>
+                <div class="profile-info">
+                    <div class="profile-name">
+                        Фамилия Имя Отчество
+                        <svg class="edit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                        </svg>
+                    </div>
+                    <div class="profile-field">
+                        <div class="profile-field-label">
+                            Номер телефона
+                            <svg class="edit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                            </svg>
+                        </div>
+                        <div class="profile-field-value">+7 9** *** _ ** _ **</div>
+                    </div>
+                    <div class="profile-field">
+                        <div class="profile-field-label">
+                            Электронная почта
+                            <svg class="edit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                            </svg>
+                        </div>
+                        <div class="profile-field-value">my_example_email@mail.ru</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="progress-section">
+                <h2>Мой прогресс</h2>
+
+                <div class="progress-item">
+                    <div class="progress-item-title">Старт и стратегия</div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar-fill" style="width: 70%;"></div>
+                    </div>
+                    <div class="progress-labels">
+                        <span>0%</span>
+                        <span class="progress-current">70%</span>
+                        <span>100%</span>
+                    </div>
+                </div>
+
+                <div class="progress-item">
+                    <div class="progress-item-title">Финансы и инвестиции</div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar-fill" style="width: 30%;"></div>
+                    </div>
+                    <div class="progress-labels">
+                        <span>0%</span>
+                        <span class="progress-current">30%</span>
+                        <span>100%</span>
+                    </div>
+                </div>
+
+                <div class="progress-item">
+                    <div class="progress-item-title">Маркетинг и бренд</div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar-fill" style="width: 55%;"></div>
+                    </div>
+                    <div class="progress-labels">
+                        <span>0%</span>
+                        <span class="progress-current">55%</span>
+                        <span>100%</span>
+                    </div>
+                </div>
+
+                <div class="progress-item">
+                    <div class="progress-item-title">Аналитика и данные</div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar-fill" style="width: 85%;"></div>
+                    </div>
+                    <div class="progress-labels">
+                        <span>0%</span>
+                        <span class="progress-current">85%</span>
+                        <span>100%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT COLUMN - RADAR -->
+        <div class="radar-section">
+            <div class="radar-container">
+                <svg class="radar-svg" viewBox="0 0 600 600">
+                    <!-- Grid circles (4 levels: 25%, 50%, 75%, 100%) -->
+                    <g class="radar-grid">
+                        <circle cx="300" cy="300" r="62.5"/>
+                        <circle cx="300" cy="300" r="125"/>
+                        <circle cx="300" cy="300" r="187.5"/>
+                        <circle cx="300" cy="300" r="250" class="outer"/>
+                    </g>
+
+                    <!-- Rotating group -->
+                    <g class="radar-rotating" id="radarRotating">
+                        <!-- Axis lines (12 lines, every 30°) -->
+                        <g id="radarAxes"></g>
+
+                        <!-- Data polygon -->
+                        <polygon class="radar-polygon" id="radarPolygon" points=""/>
+
+                        <!-- Data points -->
+                        <g id="radarPoints"></g>
+                    </g>
+
+                    <!-- Center -->
+                    <circle cx="300" cy="300" r="20" class="radar-center-ring"/>
+                    <circle cx="300" cy="300" r="12" class="radar-center"/>
+                </svg>
+
+                <!-- Pointer -->
+                <div class="radar-pointer">
+                    <div class="pointer-line"></div>
+                    <div class="pointer-dot"></div>
+                    <div class="pointer-text">
+                        <div class="pointer-title" id="pointerTitle">Продуктивность</div>
+                        <div class="pointer-subtitle" id="pointerSubtitle">Да вы эксперт!</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // ===== DATA =====
+        const categories = [
+            { name: "Старт и стратегия", value: 0.70 },
+            { name: "Финансы и инвестиции", value: 0.30 },
+            { name: "Налоги и право", value: 0.50 },
+            { name: "Маркетинг и бренд", value: 0.80 },
+            { name: "Digital-маркетинг", value: 0.60 },
+            { name: "Продажи и клиенты", value: 0.40 },
+            { name: "Аналитика и данные", value: 0.90 },
+            { name: "Команда и HR", value: 0.50 },
+            { name: "Управление проектами", value: 0.70 },
+            { name: "Продукт и разработка", value: 0.30 },
+            { name: "Инструменты", value: 0.60 },
+            { name: "Продуктивность", value: 0.85 }
+        ];
+
+        const RADIUS = 250;
+        const CENTER_X = 300;
+        const CENTER_Y = 300;
+        const SECTOR_ANGLE = 30; // degrees
+
+        // ===== HELPERS =====
+        function getLabel(value) {
+            if (value < 0.2) return "Начните с основ";
+            if (value < 0.4) return "Есть над чем поработать";
+            if (value < 0.6) return "Хороший уровень";
+            if (value < 0.8) return "Продвинутый";
+            return "Да вы эксперт!";
+        }
+
+        function polarToCartesian(angleDeg, radius) {
+            // angleDeg: 0 = 12 o'clock, clockwise
+            const angleRad = (angleDeg - 90) * Math.PI / 180;
+            return {
+                x: CENTER_X + radius * Math.cos(angleRad),
+                y: CENTER_Y + radius * Math.sin(angleRad)
+            };
+        }
+
+        // ===== BUILD RADAR =====
+        const axesGroup = document.getElementById('radarAxes');
+        const pointsGroup = document.getElementById('radarPoints');
+        const polygon = document.getElementById('radarPolygon');
+
+        let polygonPoints = [];
+
+        categories.forEach((cat, i) => {
+            const angle = i * SECTOR_ANGLE;
+            const point = polarToCartesian(angle, RADIUS);
+
+            // Axis line
+            const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+            line.setAttribute('x1', CENTER_X);
+            line.setAttribute('y1', CENTER_Y);
+            line.setAttribute('x2', point.x);
+            line.setAttribute('y2', point.y);
+            line.setAttribute('class', 'radar-axis');
+            axesGroup.appendChild(line);
+
+            // Data point
+            const dataRadius = cat.value * RADIUS;
+            const dataPoint = polarToCartesian(angle, dataRadius);
+            polygonPoints.push(`${dataPoint.x},${dataPoint.y}`);
+
+            const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            circle.setAttribute('cx', dataPoint.x);
+            circle.setAttribute('cy', dataPoint.y);
+            circle.setAttribute('r', 6);
+            circle.setAttribute('class', 'radar-point');
+            circle.setAttribute('data-index', i);
+            circle.addEventListener('click', () => onPointClick(i));
+            pointsGroup.appendChild(circle);
+        });
+
+        polygon.setAttribute('points', polygonPoints.join(' '));
+
+        // ===== INTERACTION =====
+        let currentRotation = 0;
+        let activeIndex = 11; // Start with "Продуктивность" (index 11)
+
+        function onPointClick(index) {
+            activeIndex = index;
+
+            // Calculate rotation: we want the clicked point to be at the bottom (180°)
+            // Current angle of point: index * 30°
+            // Target: 180°
+            // Rotation needed: 180° - (index * 30°)
+            const targetRotation = 180 - (index * SECTOR_ANGLE);
+
+            // Apply rotation with smooth transition
+            const rotatingGroup = document.getElementById('radarRotating');
+            rotatingGroup.style.transform = `rotate(${targetRotation}deg)`;
+
+            // Update pointer text
+            const cat = categories[index];
+            document.getElementById('pointerTitle').textContent = cat.name;
+            document.getElementById('pointerSubtitle').textContent = getLabel(cat.value);
+
+            // Update active point styling
+            document.querySelectorAll('.radar-point').forEach((point, i) => {
+                if (i === index) {
+                    point.classList.add('active');
+                } else {
+                    point.classList.remove('active');
+                }
+            });
+        }
+
+        // Initialize with "Продуктивность" at the bottom
+        onPointClick(11);
+    </script>
+</body>
+</html>
